@@ -34,12 +34,11 @@ func main() {
 		if err != nil {
 			if errors.Is(err, internalerros.ErrInternal) {
 				render.Status(r, 500)
-				render.JSON(w, r, map[string]string{"error": err.Error()})
 				return
-
+			} else {
+				render.Status(r, 400)
 			}
 
-			render.Status(r, 400)
 			render.JSON(w, r, map[string]string{"error": err.Error()})
 			return
 		}

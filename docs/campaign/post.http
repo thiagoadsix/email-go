@@ -1,5 +1,6 @@
-POST http://localhost:3000/campaigns
 
+###
+POST http://localhost:3000/campaigns
 {
   "name": "Campaing 1",
   "content": "Description of Campaign 1",
@@ -7,5 +8,7 @@ POST http://localhost:3000/campaigns
 }
 
 ###
-
 GET http://localhost:3000/campaigns
+
+###
+GET http://localhost:3000/campaigns/cq045iejp3qrir9bosc0

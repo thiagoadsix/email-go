@@ -19,6 +19,11 @@ func (r *RepositoryMock) Save(campaign *Campaign) error {
 	return args.Error(0)
 }
 
+func (r *RepositoryMock) FindAll() ([]Campaign, error) {
+	args := r.Called(campaign)
+	return args.Get(1).([]Campaign), args.Error(0)
+}
+
 var (
 	campaign = contract.NewCampaign{
 		Name:    "New Campaign",

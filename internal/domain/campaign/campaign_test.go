@@ -12,7 +12,7 @@ var (
 	name           = "New Campaign"
 	content        = "Content"
 	emails         = []string{"test1@email.com", "test2@email.com"}
-	status  Status = Pending
+	status  string = Pending
 
 	fake = faker.New()
 )

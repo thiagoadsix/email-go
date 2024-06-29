@@ -21,12 +21,11 @@ func main() {
 	campaignService := campaign.Service{
 		Repository: &repository.CampaignRepository{},
 	}
-
 	handler := routes.Handler{
 		CampaignService: campaignService,
 	}
 
-	r.Post("/campaigns", handler.CampaignPost)
+	r.Post("/campaigns", routes.HandlerError(handler.CampaignPost))
 
 	http.ListenAndServe(":3000", r)
 }

@@ -9,9 +9,10 @@ import (
 )
 
 var (
-	name    = "New Campaign"
-	content = "Content"
-	emails  = []string{"test1@email.com", "test2@email.com"}
+	name           = "New Campaign"
+	content        = "Content"
+	emails         = []string{"test1@email.com", "test2@email.com"}
+	status  Status = Pending
 
 	fake = faker.New()
 )
@@ -90,4 +91,12 @@ func Test_NewCampaign_MustValidateContacts(t *testing.T) {
 	_, err := NewCampaign(name, content, []string{"invalid_email"})
 
 	assert.Equal("email is invalid", err.Error())
+}
+
+func Test_NewCampaign_StatusMustBePending(t *testing.T) {
+	assert := assert.New(t)
+
+	campaign, _ := NewCampaign(name, content, emails)
+
+	assert.Equal(campaign.Status, status)
 }

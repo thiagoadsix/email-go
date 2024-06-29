@@ -2,7 +2,6 @@ package repository
 
 import (
 	"emailn/internal/domain/campaign"
-	"errors"
 )
 
 type CampaignRepository struct {
@@ -11,5 +10,5 @@ type CampaignRepository struct {
 
 func (cr *CampaignRepository) Save(campaign *campaign.Campaign) error {
 	cr.campaigns = append(cr.campaigns, *campaign)
-	return errors.New("an error")
+	return nil
 }

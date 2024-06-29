@@ -24,6 +24,21 @@ func (r *RepositoryMock) FindAll() ([]Campaign, error) {
 	return args.Get(1).([]Campaign), args.Error(0)
 }
 
+func (r *RepositoryMock) FindByID(id string) (struct {
+	ID      string
+	Name    string
+	Content string
+	Status  string
+}, error) {
+	args := r.Called(id)
+	return args.Get(0).(struct {
+		ID      string
+		Name    string
+		Content string
+		Status  string
+	}), args.Error(1)
+}
+
 var (
 	campaign = contract.NewCampaign{
 		Name:    "New Campaign",
@@ -81,6 +96,50 @@ func Test_Create_ValidateRepositorySave(t *testing.T) {
 
 	service.Repository = repository
 	_, err := service.Create(campaign)
+
+	assert.True(errors.Is(internalerros.ErrInternal, err))
+}
+
+func Test_Create_GetCampaignById(t *testing.T) {
+	assert := assert.New(t)
+
+	expectedCampaign := struct {
+		ID      string
+		Name    string
+		Content string
+		Status  string
+	}{
+		ID:      "123abc456efg",
+		Name:    "Sample Campaign",
+		Content: "Sample Content",
+		Status:  Pending,
+	}
+
+	repository := new(RepositoryMock)
+	repository.On("FindByID", "123abc456efg").Return(expectedCampaign, nil)
+
+	service.Repository = repository
+	result, err := service.GetById("123abc456efg")
+
+	assert.Nil(err)
+	assert.Equal(expectedCampaign, result)
+
+	repository.AssertExpectations(t)
+}
+
+func Test_Create_ValidateRepositoryFindById(t *testing.T) {
+	assert := assert.New(t)
+
+	repository := new(RepositoryMock)
+	repository.On("FindByID", mock.Anything).Return(struct {
+		ID      string
+		Name    string
+		Content string
+		Status  string
+	}{}, errors.New("error to find by id on repository"))
+
+	service.Repository = repository
+	_, err := service.GetById("123abc456efg")
 
 	assert.True(errors.Is(internalerros.ErrInternal, err))
 }

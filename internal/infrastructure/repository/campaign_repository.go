@@ -12,35 +12,17 @@ func (cr *CampaignRepository) Save(campaign *campaign.Campaign) error {
 	cr.campaigns = append(cr.campaigns, *campaign)
 	return nil
 }
-func (cr *CampaignRepository) FindAll() ([]campaign.Campaign, error) {
-	return cr.campaigns, nil
+func (cr *CampaignRepository) FindAll() (*[]campaign.Campaign, error) {
+	campaigns := make([]campaign.Campaign, len(cr.campaigns))
+	copy(campaigns, cr.campaigns)
+	return &campaigns, nil
 }
 
-func (cr *CampaignRepository) FindByID(id string) (struct {
-	ID      string
-	Name    string
-	Content string
-	Status  string
-}, error) {
+func (cr *CampaignRepository) FindByID(id string) (*campaign.Campaign, error) {
 	for _, c := range cr.campaigns {
 		if c.ID == id {
-			return struct {
-				ID      string
-				Name    string
-				Content string
-				Status  string
-			}{
-				ID:      c.ID,
-				Name:    c.Name,
-				Content: c.Content,
-				Status:  c.Status,
-			}, nil
+			return &c, nil
 		}
 	}
-	return struct {
-		ID      string
-		Name    string
-		Content string
-		Status  string
-	}{}, nil
+	return nil, nil
 }

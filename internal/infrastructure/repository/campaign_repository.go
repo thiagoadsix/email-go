@@ -2,27 +2,26 @@ package repository
 
 import (
 	"emailn/internal/domain/campaign"
+
+	"gorm.io/gorm"
 )
 
 type CampaignRepository struct {
-	campaigns []campaign.Campaign
+	Db *gorm.DB
 }
 
 func (cr *CampaignRepository) Save(campaign *campaign.Campaign) error {
-	cr.campaigns = append(cr.campaigns, *campaign)
-	return nil
+	tx := cr.Db.Create(campaign)
+	return tx.Error
 }
 func (cr *CampaignRepository) FindAll() (*[]campaign.Campaign, error) {
-	campaigns := make([]campaign.Campaign, len(cr.campaigns))
-	copy(campaigns, cr.campaigns)
-	return &campaigns, nil
+	var campaigns []campaign.Campaign
+	tx := cr.Db.Find(&campaigns)
+	return &campaigns, tx.Error
 }
 
 func (cr *CampaignRepository) FindByID(id string) (*campaign.Campaign, error) {
-	for _, c := range cr.campaigns {
-		if c.ID == id {
-			return &c, nil
-		}
-	}
-	return nil, nil
+	var campaign campaign.Campaign
+	tx := cr.Db.First(&campaign, id)
+	return &campaign, tx.Error
 }

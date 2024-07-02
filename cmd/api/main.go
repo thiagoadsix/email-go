@@ -18,8 +18,10 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
+	db := repository.NewClient()
+
 	campaignService := campaign.ServiceImpl{
-		Repository: &repository.CampaignRepository{},
+		Repository: &repository.CampaignRepository{Db: db},
 	}
 	handler := routes.Handler{
 		CampaignService: &campaignService,

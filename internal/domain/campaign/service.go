@@ -11,6 +11,7 @@ type Service interface {
 	GetAll() (*[]contract.CampaignResponse, error)
 	GetById(id string) (*contract.CampaignResponse, error)
 	Cancel(id string) error
+	Delete(id string) error
 }
 
 type ServiceImpl struct {
@@ -35,6 +36,7 @@ func (s *ServiceImpl) Create(newCampaign contract.NewCampaign) (string, error) {
 
 func (s *ServiceImpl) GetAll() (*[]contract.CampaignResponse, error) {
 	campaigns, err := s.Repository.FindAll()
+
 	if err != nil {
 		return nil, internalerros.ErrInternal
 	}
@@ -57,8 +59,7 @@ func (s *ServiceImpl) GetById(id string) (*contract.CampaignResponse, error) {
 	campaign, err := s.Repository.FindByID(id)
 
 	if err != nil {
-		println(err.Error())
-		return nil, internalerros.ErrInternal
+		return nil, internalerros.ProcessErrorToReturn(err)
 	}
 
 	return &contract.CampaignResponse{
@@ -73,8 +74,7 @@ func (s *ServiceImpl) Cancel(id string) error {
 	campaign, err := s.Repository.FindByID(id)
 
 	if err != nil {
-		println(err.Error())
-		return internalerros.ErrInternal
+		return internalerros.ProcessErrorToReturn(err)
 	}
 
 	if campaign.Status != Pending {
@@ -86,6 +86,26 @@ func (s *ServiceImpl) Cancel(id string) error {
 
 	if err != nil {
 		println(err.Error())
+		return internalerros.ErrInternal
+	}
+
+	return nil
+}
+
+func (s *ServiceImpl) Delete(id string) error {
+	campaign, err := s.Repository.FindByID(id)
+
+	if err != nil {
+		return internalerros.ProcessErrorToReturn(err)
+	}
+
+	if campaign.Status != Pending {
+		return errors.New("Campaign status invalid")
+	}
+
+	err = s.Repository.Delete(campaign)
+
+	if err != nil {
 		return internalerros.ErrInternal
 	}
 

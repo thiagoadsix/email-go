@@ -39,6 +39,11 @@ func (r *RepositoryMock) Update(campaign *Campaign) error {
 	return args.Error(0)
 }
 
+func (r *RepositoryMock) Delete(campaign *Campaign) error {
+	args := r.Called(campaign)
+	return args.Error(0)
+}
+
 var (
 	newCampaign = contract.NewCampaign{
 		Name:    "New Campaign",

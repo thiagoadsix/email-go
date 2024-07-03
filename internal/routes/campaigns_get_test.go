@@ -2,7 +2,7 @@ package routes
 
 import (
 	"emailn/internal/contract"
-	internalmock "emailn/internal/test/mock"
+	internalmock "emailn/internal/test/internal-mock"
 	"fmt"
 	"net/http"
 	"net/http/httptest"

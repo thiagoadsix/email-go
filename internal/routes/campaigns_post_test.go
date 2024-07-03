@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-func Test_CampaignsPost_ShouldSaveNewCampaign(t *testing.T) {
+func Test_CampaignsPost_ShouldCreateNewCampaign(t *testing.T) {
 	assert := assert.New(t)
 	body := contract.NewCampaign{
 		Name:    "Test Campaign",

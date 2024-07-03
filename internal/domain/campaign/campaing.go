@@ -14,9 +14,10 @@ type Contact struct {
 }
 
 const (
-	Pending string = "pending"
-	Started string = "started"
-	Done    string = "done"
+	Pending   string = "pending"
+	Started   string = "started"
+	Done      string = "done"
+	Cancelled string = "cancelled"
 )
 
 type Campaign struct {
@@ -52,4 +53,8 @@ func NewCampaign(name string, content string, emails []string) (*Campaign, error
 	}
 
 	return nil, err
+}
+
+func (campaign *Campaign) CancelCampaign() {
+	campaign.Status = Cancelled
 }

@@ -27,12 +27,16 @@ func main() {
 		CampaignService: &campaignService,
 	}
 
-	r.Post("/campaigns", routes.HandlerError(handler.CampaignPost))
+	r.Route("/campaigns", func(r chi.Router) {
+		r.Use(routes.Auth)
 
-	r.Get("/campaigns", routes.HandlerError(handler.CampaignGetAll))
-	r.Get("/campaigns/{id}", routes.HandlerError(handler.CampaignGetById))
-	r.Patch("/campaigns/cancel/{id}", routes.HandlerError(handler.CampaignCancel))
-	r.Delete("/campaigns/delete/{id}", routes.HandlerError(handler.CampaignDelete))
+		r.Get("/", routes.HandlerError(handler.CampaignGetAll))
+		r.Get("/{id}", routes.HandlerError(handler.CampaignGetById))
+		r.Patch("/cancel/{id}", routes.HandlerError(handler.CampaignCancel))
+		r.Delete("/delete/{id}", routes.HandlerError(handler.CampaignDelete))
+	})
+
+	r.Post("/campaigns", routes.HandlerError(handler.CampaignPost))
 
 	http.ListenAndServe(":3000", r)
 }

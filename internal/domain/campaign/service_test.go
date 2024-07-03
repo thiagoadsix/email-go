@@ -34,6 +34,11 @@ func (r *RepositoryMock) FindByID(id string) (*Campaign, error) {
 	return args.Get(0).(*Campaign), nil
 }
 
+func (r *RepositoryMock) Update(campaign *Campaign) error {
+	args := r.Called(campaign)
+	return args.Error(0)
+}
+
 var (
 	newCampaign = contract.NewCampaign{
 		Name:    "New Campaign",

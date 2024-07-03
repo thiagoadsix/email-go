@@ -25,3 +25,8 @@ func (cr *CampaignRepository) FindByID(id string) (*campaign.Campaign, error) {
 	tx := cr.Db.First(&campaign, "id = ?", id)
 	return &campaign, tx.Error
 }
+
+func (cr *CampaignRepository) Update(campaign *campaign.Campaign) error {
+	tx := cr.Db.Model(&campaign).Update("status", campaign.Status).Where("id = ?", campaign.ID)
+	return tx.Error
+}

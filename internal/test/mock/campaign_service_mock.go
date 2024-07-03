@@ -33,3 +33,7 @@ func (mock *CampaignServiceMock) GetAll() (*[]contract.CampaignResponse, error) 
 func (mock *CampaignServiceMock) Cancel(id string) error {
 	return nil
 }
+
+func (mock *CampaignServiceMock) Delete(id string) error {
+	return nil
+}

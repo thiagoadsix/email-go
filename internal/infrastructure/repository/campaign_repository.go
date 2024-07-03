@@ -27,6 +27,11 @@ func (cr *CampaignRepository) FindByID(id string) (*campaign.Campaign, error) {
 }
 
 func (cr *CampaignRepository) Update(campaign *campaign.Campaign) error {
-	tx := cr.Db.Model(&campaign).Update("status", campaign.Status).Where("id = ?", campaign.ID)
+	tx := cr.Db.Save(campaign)
+	return tx.Error
+}
+
+func (cr *CampaignRepository) Delete(campaign *campaign.Campaign) error {
+	tx := cr.Db.Select("Contacts").Delete(campaign)
 	return tx.Error
 }

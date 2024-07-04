@@ -9,6 +9,7 @@ require (
 	github.com/go-chi/chi/v5 v5.0.14
 	github.com/go-chi/render v1.0.3
 	github.com/go-playground/validator/v10 v10.22.0
+	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/jaswdr/faker v1.19.1
 	github.com/rs/xid v1.5.0
 	github.com/stretchr/testify v1.9.0

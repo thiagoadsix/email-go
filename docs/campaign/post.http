@@ -4,11 +4,11 @@
 
 ###
 POST {{url}}/campaigns
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVVEyX2ZjSThqWTVLRi1RSnhSS0lsb0ZJSFh3WWFsZmZaSjgxYkszNGMwIn0.eyJleHAiOjE3MjAwNDczOTgsImlhdCI6MTcyMDA0NzA5OCwianRpIjoiZDA4YWRmNzEtMzI5ZC00YTE5LTkxZTAtYzUzZjBjZThkNDM4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9lbWFpbG5fcmVhbG0iLCJhdWQiOiJlbWFpbG4iLCJzdWIiOiI2N2FlMjRhYi04OGI3LTRkNzUtYWU0OC1lMmU1MjNmMTQ3NDEiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJlbWFpbG4iLCJzZXNzaW9uX3N0YXRlIjoiZmZlMzhlOGItMGRkYi00YWYwLTg4NDUtNjRhNjdjYmZjNTA1Iiwic2NvcGUiOiIiLCJzaWQiOiJmZmUzOGU4Yi0wZGRiLTRhZjAtODg0NS02NGE2N2NiZmM1MDUifQ.q5f2-Zomue7bl29HptEx5wmfcj5J1UrBO_Fm0uSzZZ6h4u_e6prMwiyWD6vhh5eCRlfQaezFVvWf_1rFOC76q7PXrneXN19JjC9Uwh8Ijlx4XH1oZP88z_JoL4sW8Xj8D3oeuZ3x8u6GnxyjDEjxDAsPExZnDZlu88aGwNUroI2UPqBvYwVRbFep9J1XHTPqsl65gH_s52fY7xcuynpqL3q_AHcS2cBzrK_aW82jUFX8y73shzZqNSG2YFrgAWsxxk5hnaAvcaZd1KsqCND-6Cgkp1MRdFl__gJ18Shp4qCbQQJVl1zOSDhX_fh7bK9-r6ZeJ_E4il5jXu7brBtCYQ
+Authorization: Bearer {{access_token}}
 
 {
   "name": "Campaing 3",
-  "content": "Description of Campaign 3",
+  "content": "Description of Campaign 4",
   "emails": ["test@email.com", "test1@email.com", "test2@email.com"]
 }
 
@@ -17,13 +17,16 @@ GET {{url}}/campaigns
 Authorization: Bearer {{access_token}}
 
 ###
-GET {{url}}/campaigns/cq2apnujp3qqmk9gr3sg
+GET {{url}}/campaigns/cq2ufkejp3qus68taoig
+Authorization: Bearer {{access_token}}
 
 ###
 PATCH {{url}}/campaigns/cancel/cq285tejp3qksp0r7uj0
+Authorization: Bearer {{access_token}}
 
 ###
 DELETE {{url}}/campaigns/delete/cq285tejp3qksp0r7uj0
+Authorization: Bearer {{access_token}}
 
 ###
 # @name token

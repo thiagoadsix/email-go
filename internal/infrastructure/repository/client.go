@@ -2,13 +2,14 @@ package repository
 
 import (
 	"emailn/internal/domain/campaign"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func NewClient() *gorm.DB {
-	dsn := "host=localhost user=emailn_dev password=12345678 port=5432 sslmode=disable"
+	dsn := os.Getenv("DATA_BASE_URL")
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {

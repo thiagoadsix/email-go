@@ -29,3 +29,5 @@
 .env
 
 /tmp
+
+/cmd/**/tmp

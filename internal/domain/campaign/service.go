@@ -113,18 +113,29 @@ func (s *ServiceImpl) Start(id string) error {
 		return err
 	}
 
-	err = s.SendMail(campaign)
-	if err != nil {
-		return internalerros.ErrInternal
-	}
+	go s.SendMailAndUpdateStatus(campaign)
 
-	campaign.DoneCampaign()
+	campaign.StartCampaign()
+
 	err = s.Repository.Update(campaign)
+
 	if err != nil {
 		return internalerros.ErrInternal
 	}
 
 	return nil
+}
+
+func (s *ServiceImpl) SendMailAndUpdateStatus(campaign *Campaign) {
+	err := s.SendMail(campaign)
+
+	if err != nil {
+		campaign.FailCampaign()
+	} else {
+		campaign.DoneCampaign()
+	}
+
+	s.Repository.Update(campaign)
 }
 
 func (s *ServiceImpl) getCampaignAndValidateIfStatusIsPending(id string) (*Campaign, error) {

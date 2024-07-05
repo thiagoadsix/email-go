@@ -18,16 +18,18 @@ const (
 	Started   string = "started"
 	Done      string = "done"
 	Cancelled string = "cancelled"
+	Fail      string = "fail"
 )
 
 type Campaign struct {
-	ID        string    `validate:"required" gorm:"size:50"`
-	Name      string    `validate:"min=5,max=24" gorm:"size:100"`
-	Content   string    `validate:"min=5,max=1024" gorm:"size:1024"`
+	ID        string    `validate:"required" gorm:"size:50;not null"`
+	Name      string    `validate:"min=5,max=24" gorm:"size:100;not null"`
+	Content   string    `validate:"min=5,max=1024" gorm:"size:1024;not null"`
 	Contacts  []Contact `validate:"min=1,dive"`
-	Status    string    `validate:"required" gorm:"size:20"`
-	CreatedOn time.Time `validate:"required"`
-	CreatedBy string    `validate:"email" gorm:"size:100"`
+	Status    string    `validate:"required" gorm:"size:20;not null"`
+	CreatedOn time.Time `validate:"required" gorm:"not null"`
+	UpdatedOn time.Time
+	CreatedBy string `validate:"email" gorm:"size:100;not null"`
 }
 
 func NewCampaign(name string, content string, emails []string, createdBy string) (*Campaign, error) {
@@ -59,8 +61,20 @@ func NewCampaign(name string, content string, emails []string, createdBy string)
 
 func (campaign *Campaign) CancelCampaign() {
 	campaign.Status = Cancelled
+	campaign.UpdatedOn = time.Now()
 }
 
 func (campaign *Campaign) DoneCampaign() {
 	campaign.Status = Done
+	campaign.UpdatedOn = time.Now()
+}
+
+func (campaign *Campaign) FailCampaign() {
+	campaign.Status = Fail
+	campaign.UpdatedOn = time.Now()
+}
+
+func (campaign *Campaign) StartCampaign() {
+	campaign.Status = Started
+	campaign.UpdatedOn = time.Now()
 }

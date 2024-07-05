@@ -17,7 +17,7 @@ GET {{url}}/campaigns
 Authorization: Bearer {{access_token}}
 
 ###
-GET {{url}}/campaigns/cq3k5m6jp3qld0p19k50
+GET {{url}}/campaigns/cq3m47ejp3qmacsnkpp0
 Authorization: Bearer {{access_token}}
 
 ###
@@ -29,7 +29,7 @@ DELETE {{url}}/campaigns/delete/cq285tejp3qksp0r7uj0
 Authorization: Bearer {{access_token}}
 
 ###
-PATCH {{url}}/campaigns/start/cq3k5m6jp3qld0p19k50
+PATCH {{url}}/campaigns/start/cq3mcvmjp3qos977k16g
 Authorization: Bearer {{access_token}}
 
 ###

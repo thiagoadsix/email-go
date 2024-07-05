@@ -73,14 +73,10 @@ func (s *ServiceImpl) GetById(id string) (*contract.CampaignResponse, error) {
 }
 
 func (s *ServiceImpl) Cancel(id string) error {
-	campaign, err := s.Repository.FindByID(id)
+	campaign, err := s.getCampaignAndValidateIfStatusIsPending(id)
 
 	if err != nil {
-		return internalerros.ProcessErrorToReturn(err)
-	}
-
-	if campaign.Status != Pending {
-		return errors.New("Campaign status invalid")
+		return err
 	}
 
 	campaign.CancelCampaign()
@@ -95,14 +91,10 @@ func (s *ServiceImpl) Cancel(id string) error {
 }
 
 func (s *ServiceImpl) Delete(id string) error {
-	campaign, err := s.Repository.FindByID(id)
+	campaign, err := s.getCampaignAndValidateIfStatusIsPending(id)
 
 	if err != nil {
-		return internalerros.ProcessErrorToReturn(err)
-	}
-
-	if campaign.Status != Pending {
-		return errors.New("Campaign status invalid")
+		return err
 	}
 
 	err = s.Repository.Delete(campaign)
@@ -115,28 +107,36 @@ func (s *ServiceImpl) Delete(id string) error {
 }
 
 func (s *ServiceImpl) Start(id string) error {
-	campaignFound, err := s.Repository.FindByID(id)
+	campaign, err := s.getCampaignAndValidateIfStatusIsPending(id)
 
 	if err != nil {
-		return internalerros.ProcessErrorToReturn(err)
+		return err
 	}
 
-	if campaignFound.Status != Pending {
-		return errors.New("Campaign status invalid")
-	}
-
-	err = s.SendMail(campaignFound)
-
+	err = s.SendMail(campaign)
 	if err != nil {
 		return internalerros.ErrInternal
 	}
 
-	campaignFound.DoneCampaign()
-	err = s.Repository.Update(campaignFound)
-
+	campaign.DoneCampaign()
+	err = s.Repository.Update(campaign)
 	if err != nil {
 		return internalerros.ErrInternal
 	}
 
 	return nil
+}
+
+func (s *ServiceImpl) getCampaignAndValidateIfStatusIsPending(id string) (*Campaign, error) {
+	campaign, err := s.Repository.FindByID(id)
+
+	if err != nil {
+		return nil, internalerros.ProcessErrorToReturn(err)
+	}
+
+	if campaign.Status != Pending {
+		return nil, errors.New("Campaign status invalid")
+	}
+
+	return campaign, nil
 }

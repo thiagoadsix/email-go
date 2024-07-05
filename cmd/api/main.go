@@ -2,6 +2,7 @@ package main
 
 import (
 	"emailn/internal/domain/campaign"
+	"emailn/internal/infrastructure/mail"
 	"emailn/internal/infrastructure/repository"
 	"emailn/internal/routes"
 	"log"
@@ -9,11 +10,11 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	gotdotenv "github.com/joho/godotenv"
+	godotenv "github.com/joho/godotenv"
 )
 
 func main() {
-	err := gotdotenv.Load()
+	err := godotenv.Load()
 
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -31,6 +32,7 @@ func main() {
 
 	campaignService := campaign.ServiceImpl{
 		Repository: &repository.CampaignRepository{Db: db},
+		SendMail:   mail.SendMail,
 	}
 	handler := routes.Handler{
 		CampaignService: &campaignService,
@@ -44,6 +46,7 @@ func main() {
 		r.Get("/{id}", routes.HandlerError(handler.CampaignGetById))
 		r.Patch("/cancel/{id}", routes.HandlerError(handler.CampaignCancel))
 		r.Delete("/delete/{id}", routes.HandlerError(handler.CampaignDelete))
+		r.Patch("/start/{id}", routes.HandlerError(handler.CampaignStart))
 	})
 
 	http.ListenAndServe(":3000", r)

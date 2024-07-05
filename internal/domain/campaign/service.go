@@ -12,6 +12,7 @@ type Service interface {
 	GetById(id string) (*contract.CampaignResponse, error)
 	Cancel(id string) error
 	Delete(id string) error
+	Start(id string) error
 }
 
 type ServiceImpl struct {
@@ -83,7 +84,6 @@ func (s *ServiceImpl) Cancel(id string) error {
 	err = s.Repository.Update(campaign)
 
 	if err != nil {
-		println(err.Error())
 		return internalerros.ErrInternal
 	}
 

@@ -7,9 +7,9 @@ POST {{url}}/campaigns
 Authorization: Bearer {{access_token}}
 
 {
-  "name": "Campaing 3",
-  "content": "Description of Campaign 4",
-  "emails": ["test@email.com", "test1@email.com", "test2@email.com"]
+  "name": "Campaing 5",
+  "content": "Description of Campaign 5",
+  "emails": ["thiago.adsix@gmail.com"]
 }
 
 ###
@@ -17,15 +17,19 @@ GET {{url}}/campaigns
 Authorization: Bearer {{access_token}}
 
 ###
-GET {{url}}/campaigns/cq2ufkejp3qus68taoig
+GET {{url}}/campaigns/cq3k5m6jp3qld0p19k50
 Authorization: Bearer {{access_token}}
 
 ###
-PATCH {{url}}/campaigns/cancel/cq285tejp3qksp0r7uj0
+PATCH {{url}}/campaigns/cancel/cq3k5m6jp3qld0p19k50
 Authorization: Bearer {{access_token}}
 
 ###
 DELETE {{url}}/campaigns/delete/cq285tejp3qksp0r7uj0
+Authorization: Bearer {{access_token}}
+
+###
+PATCH {{url}}/campaigns/start/cq3k5m6jp3qld0p19k50
 Authorization: Bearer {{access_token}}
 
 ###

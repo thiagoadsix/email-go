@@ -13,6 +13,7 @@ type Service interface {
 	Cancel(id string) error
 	Delete(id string) error
 	Start(id string) error
+	SendMailAndUpdateStatus(campaign *Campaign)
 }
 
 type ServiceImpl struct {
@@ -112,8 +113,6 @@ func (s *ServiceImpl) Start(id string) error {
 	if err != nil {
 		return err
 	}
-
-	go s.SendMailAndUpdateStatus(campaign)
 
 	campaign.StartCampaign()
 

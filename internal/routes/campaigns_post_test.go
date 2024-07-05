@@ -15,7 +15,7 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-func setup(body *contract.NewCampaign, createdByExpected string) (*http.Request, *httptest.ResponseRecorder) {
+func setup2(body *contract.NewCampaign, createdByExpected string) (*http.Request, *httptest.ResponseRecorder) {
 	var buf bytes.Buffer
 	json.NewEncoder(&buf).Encode(body)
 
@@ -47,7 +47,7 @@ func Test_CampaignsPost_ShouldCreateNewCampaign(t *testing.T) {
 	})).Return("123", nil)
 	handler := Handler{CampaignService: service}
 
-	req, res := setup(&body, createdByExpected)
+	req, res := setup2(&body, createdByExpected)
 
 	_, status, err := handler.CampaignPost(res, req)
 
@@ -67,7 +67,7 @@ func Test_CampaignsPost_ShouldInformErrorWhenExists(t *testing.T) {
 	service.On("Create", mock.Anything).Return("", fmt.Errorf("error"))
 	handler := Handler{CampaignService: service}
 
-	req, res := setup(&body, "test@test.com")
+	req, res := setup2(&body, "test@test.com")
 
 	_, _, err := handler.CampaignPost(res, req)
 

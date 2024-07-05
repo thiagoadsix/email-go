@@ -17,7 +17,7 @@ func Test_CampaignsStart_200(t *testing.T) {
 		return id == campaignId
 	})).Return(nil)
 
-	req, res := newHttpTest(http.MethodPatch, "/campaigns/start")
+	req, res := newHttpTest(http.MethodPatch, "/campaigns/start", nil)
 	req = addParameterToRequest(req, "id", campaignId)
 
 	_, status, err := handler.CampaignStart(res, req)
@@ -32,7 +32,7 @@ func Test_CampaignsStart_Error(t *testing.T) {
 
 	service.On("Start", mock.Anything).Return(errorExpected)
 
-	req, res := newHttpTest(http.MethodPatch, "/campaigns/start")
+	req, res := newHttpTest(http.MethodPatch, "/campaigns/start", nil)
 
 	_, _, err := handler.CampaignStart(res, req)
 

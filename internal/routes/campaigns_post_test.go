@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"emailn/internal/contract"
+	contract "emailn/internal/contract/campaign"
 	"fmt"
 	"net/http"
 	"testing"
@@ -16,13 +16,13 @@ var (
 
 func Test_CampaignsPost_201(t *testing.T) {
 	setUp()
-	body := contract.NewCampaign{
+	body := contract.NewCampaignRequest{
 		Name:    "Test Campaign",
 		Content: "Test Content",
 		Emails:  []string{"test@email.com"},
 	}
 
-	service.On("Create", mock.MatchedBy(func(newCampaign contract.NewCampaign) bool {
+	service.On("Create", mock.MatchedBy(func(newCampaign contract.NewCampaignRequest) bool {
 		if newCampaign.Name == body.Name && newCampaign.Content == body.Content && newCampaign.CreatedBy == createdByExpected {
 			return true
 		} else {
@@ -41,7 +41,7 @@ func Test_CampaignsPost_201(t *testing.T) {
 
 func Test_CampaignsPost_Error(t *testing.T) {
 	setUp()
-	body := contract.NewCampaign{
+	body := contract.NewCampaignRequest{
 		Name:    "Test Campaign",
 		Content: "Test Content",
 		Emails:  []string{"test@email.com"},

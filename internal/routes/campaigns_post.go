@@ -1,14 +1,14 @@
 package routes
 
 import (
-	"emailn/internal/contract"
+	contract "emailn/internal/contract/campaign"
 	"net/http"
 
 	"github.com/go-chi/render"
 )
 
 func (h *Handler) CampaignPost(w http.ResponseWriter, r *http.Request) (interface{}, int, error) {
-	var request contract.NewCampaign
+	var request contract.NewCampaignRequest
 	render.DecodeJSON(r.Body, &request)
 
 	email := r.Context().Value("email").(string)

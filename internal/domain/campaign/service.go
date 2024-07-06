@@ -1,13 +1,13 @@
 package campaign
 
 import (
-	"emailn/internal/contract"
+	contract "emailn/internal/contract/campaign"
 	internalerros "emailn/internal/internal-erros"
 	"errors"
 )
 
 type Service interface {
-	Create(newCampaign contract.NewCampaign) (string, error)
+	Create(newCampaign contract.NewCampaignRequest) (string, error)
 	GetAll() (*[]contract.CampaignResponse, error)
 	GetById(id string) (*contract.CampaignResponse, error)
 	Cancel(id string) error
@@ -21,7 +21,7 @@ type ServiceImpl struct {
 	SendMail   func(campaign *Campaign) error
 }
 
-func (s *ServiceImpl) Create(newCampaign contract.NewCampaign) (string, error) {
+func (s *ServiceImpl) Create(newCampaign contract.NewCampaignRequest) (string, error) {
 	campaign, err := NewCampaign(newCampaign.Name, newCampaign.Content, newCampaign.Emails, newCampaign.CreatedBy)
 
 	if err != nil {

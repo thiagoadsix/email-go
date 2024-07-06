@@ -1,7 +1,7 @@
 package internalmock
 
 import (
-	"emailn/internal/contract"
+	contract "emailn/internal/contract/campaign"
 	"emailn/internal/domain/campaign"
 
 	"github.com/stretchr/testify/mock"
@@ -11,7 +11,7 @@ type CampaignServiceMock struct {
 	mock.Mock
 }
 
-func (mock *CampaignServiceMock) Create(newCampaign contract.NewCampaign) (string, error) {
+func (mock *CampaignServiceMock) Create(newCampaign contract.NewCampaignRequest) (string, error) {
 	args := mock.Called(newCampaign)
 
 	return args.String(0), args.Error(1)

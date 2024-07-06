@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"emailn/internal/contract"
+	contract "emailn/internal/contract/campaign"
 	internalmock "emailn/internal/test/internal-mock"
 	"fmt"
 	"net/http"

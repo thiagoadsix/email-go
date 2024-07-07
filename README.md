@@ -1,4 +1,4 @@
-# Email Campaign Service
+# Email Campaign Service (email-go)
 
 This project is a Go application for managing email campaigns. It includes several components such as campaign services, email sending infrastructure, and route handling.
 
@@ -20,7 +20,7 @@ This project is a Go application for managing email campaigns. It includes sever
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/email-campaign-service.git
+    git clone https://github.com/thiagoadsix/email-go.git
     cd email-campaign-service
     ```
 

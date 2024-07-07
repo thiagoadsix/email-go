@@ -31,3 +31,5 @@
 /tmp
 
 /cmd/**/tmp
+
+main.go

@@ -66,6 +66,26 @@ This project is a Go application for managing email campaigns. It includes sever
 - Make sure your database is up and running.
 - Use an API client like Postman to interact with the endpoints.
 
+## Keycloak for Authentication
+
+We are using [Keycloak](https://www.keycloak.org/) for authentication and authorization. Keycloak is an open-source Identity and Access Management solution aimed at modern applications and services.
+
+## Libraries Used
+
+- `github.com/coreos/go-oidc/v3 v3.10.0`: OpenID Connect (OIDC) client implementation.
+- `github.com/go-chi/chi/v5 v5.0.14`: Lightweight, idiomatic, and composable router for building Go HTTP services.
+- `github.com/go-chi/render v1.0.3`: Rendering utilities for HTTP responses.
+- `github.com/go-playground/validator/v10 v10.22.0`: Go (golang) package for data validation.
+- `github.com/golang-jwt/jwt/v5 v5.2.1`: A Go implementation of JSON Web Tokens (JWT).
+- `github.com/jaswdr/faker v1.19.1`: Faker is a library for generating fake data.
+- `github.com/joho/godotenv v1.5.1`: Go port of Ruby's dotenv library (loads environment variables from `.env`).
+- `github.com/rs/xid v1.5.0`: Xid is a globally unique id generator.
+- `github.com/stretchr/testify v1.9.0`: A toolkit with common assertions and mocks that plays nicely with the standard library.
+- `gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df`: A simple and efficient package to send emails.
+- `gorm.io/driver/postgres v1.5.9`: GORM PostgreSQL driver.
+- `gorm.io/gorm v1.25.10`: The fantastic ORM library for Golang.
+
+
 ## Contributing
 
 1. Fork the repository.
